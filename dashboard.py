@@ -1,6 +1,6 @@
 import streamlit as st
 import requests
-st.title("CNC Machine Health Dahboard")
+st.title("CNC Machine Health Dashboard")
 
 st.subheader("Enter Sensor Data")
 spindle_speed=st.number_input("Spindle Speed (RPM)", value=0.0)

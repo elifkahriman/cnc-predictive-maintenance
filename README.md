@@ -1,38 +1,34 @@
-# CNC Predictive Maintenance System
+# Predictive Maintenance System
 
-Bu proje, CNC makinelerinden gelen sensör verilerini kullanarak makinenin arızalanma riskini önceden tahmin eden uçtan uca bir "Kestirimci Bakım" (Predictive Maintenance) sistemidir.
+## 📌 Business Problem & Project Objective
+Unexpected machine failures in production lines lead to significant downtime and financial losses. This project implements an end-to-end machine learning pipeline that analyzes machine sensor data to proactively predict potential failures and optimize maintenance schedules.
 
-## Proje Hakkında
-Sistem, makine sensörlerinden gelen verileri (spindle speed, vibration, temperature vb.) işleyerek Random Forest algoritması ile arıza tahmini yapar. FastAPI ile bir backend servisi ve Streamlit ile kullanıcı dostu bir dashboard içerir.
+## ⚙️ System Architecture
+1. **Data Processing & Modeling:** Time-series feature engineering (lag/window functions) and anomaly prediction using a Random Forest classifier. A chronological split is applied to prevent data leakage.
+2. **Backend API:** Fast and asynchronous API service built with FastAPI for model inference.
+3. **User Interface:** Interactive Streamlit dashboard for field engineers to monitor real-time machine health and risk status.
 
-## Kullanılan Teknolojiler
-- **Python**
-- **Machine Learning:** Scikit-Learn (Random Forest)
-- **Backend:** FastAPI
-- **Frontend/Dashboard:** Streamlit
-- **Veri İşleme:** Pandas, Joblib, Pathlib
+## 🚀 Tech Stack
+* **Modeling:** scikit-learn, Pandas, NumPy
+* **Backend:** FastAPI, Uvicorn
+* **Frontend:** Streamlit
+* **Database:** SQLite
 
-## Proje Yapısı
-- `/api`: FastAPI backend servis dosyaları.
-- `/data`: Ham ve işlenmiş veri setleri.
-- `/models`: Eğitilmiş ML modelleri ve scaler dosyaları.
-- `/notebooks`: EDA ve model eğitim adımlarının bulunduğu Jupyter dosyaları.
-- `dashboard.py`: Streamlit ile hazırlanan kullanıcı arayüzü.
+## 🔧 Installation & Usage
 
-## Kurulum ve Çalıştırma
-
-1. **Gerekli kütüphaneleri yükleyin:**
+1. **Install required dependencies:**
    ```bash
    pip install -r requirements.txt
 
-2. **Backend (API) servisini başlatın:**
+2. **Start the Backend (API) service:**
    ```bash
    uvicorn api.main:app --reload
 
-3. **Dashboard'u başlatın (Ayrı bir terminalde):**
+3. **Start the Dashboard (in a separate terminal):**
    ```bash
    streamlit run dashboard.py
 
-4. **Tarayınızda açın:**
-   http://localhost:8501 adresine giderek dashboard'u kullanabilirsiniz.
+4. **Access the application:**
+   Open your web browser and navigate to http://localhost:8501
+
 
