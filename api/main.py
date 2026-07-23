@@ -2,7 +2,7 @@ from pathlib import Path
 import joblib
 import pandas as pd
 from fastapi import FastAPI
-from pydantic import BaseModel
+from pydantic import BaseModel    
 
 app = FastAPI(title="CNC Predictive Maintenance API")
 

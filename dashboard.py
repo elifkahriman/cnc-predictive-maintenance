@@ -21,7 +21,7 @@ if st.button("Predict"):
         result = response.json()
         
         prob = result.get("failure_probability", 0.0)
-        st.info(f"🔍 Calculated Failure Risk: {prob:.1%}")
+        st.info(f"Calculated Failure Risk: {prob:.1%}")
         
         if result["prediction"] == 1:
             st.error(f"Warning: {result['warning']}")
