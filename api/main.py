@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 model = joblib.load(BASE_DIR / "models" / "xgboost_model.pkl")
 scaler = joblib.load(BASE_DIR / "models" / "robust_scaler.pkl")
-
+ 
 class SensorData(BaseModel):
     spindle_speed_rpm: float
     prev_temperature_c: float
@@ -18,22 +18,22 @@ class SensorData(BaseModel):
 
 @app.get("/")
 def read_root():
-    return {"status": "API is running"}
+    return {"status":"API is running"}
 
 @app.post("/predict")
 def predict_failure(data: SensorData):
     input_df = pd.DataFrame([data.model_dump()])
     scaled_features = scaler.transform(input_df)
     
-    # model.predict() yerine olasılıkları (probabilities) alıyoruz
     probabilities = model.predict_proba(scaled_features)[0]
-    failure_prob = probabilities[1]  # 1 (Arıza) sınıfının olasılığı
+    failure_prob = probabilities[1]
     
-    # Eşik değerini %50'den %30'a düşürüyoruz (Daha hassas bir alarm sistemi)
+    # Lowered threshold for higher sensitivity to anomalies
     THRESHOLD = 0.30
-    prediction = 1 if failure_prob >= THRESHOLD else 0
+    prediction = 1 if failure_prob>= THRESHOLD else 0
     
     warning = "High Risk of Failure" if prediction == 1 else "Normal Operation"
+    
     return {
         "prediction": int(prediction), 
         "warning": warning,
